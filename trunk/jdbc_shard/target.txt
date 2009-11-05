@@ -1,0 +1,36 @@
+支持数据库的水平切分
+	列表分区,范围分区（包含时间范围分区），哈希分区
+	(在分区时，可能需要在message表上增加user_id列，以使message能够按user_id分区）
+Mysql分区请参考: http://dev.mysql.com/doc/refman/5.1/zh/partitioning.html#partitioning-list
+
+水平切分需要支持的表达式:
+列表分区
+	PARTITION BY LIST(store_id) 
+		PARTITION datasource1 VALUES IN (3,5,6,9,17);
+		PARTITION datasource2 VALUES IN (3,5,6,9,17);
+哈希分区
+	PARTITION BY HASH(store_id) partitions 2
+　　STORE IN (datasource1,datasource2); 
+范围分区
+	PARTITION BY RANGE (store_id) (
+	    PARTITION datasource1 VALUES LESS THAN (6),
+	    PARTITION datasource2 VALUES LESS THAN (11),
+	    PARTITION datasource3 VALUES LESS THAN (16),
+	    PARTITION datasource4 VALUES LESS THAN MAXVALUE
+    )
+sql数据解析可以使用sqljep: http://sqljep.sourceforge.net/
+
+插入/更新/删除流程
+	得到数据相对应的shard_id
+	得到shard数据库连接
+	执行sql并返回结果
+
+查询
+	得到数据对应的shard_id列表
+	在所有的列表上执行query并得到结果
+	将所有结果汇总并返回
+	
+垂直切分:
+	<tableRule name="user_info" schema="test" dataSources="blogdb"/>
+	
+远景：支持数据库的垂直切分,提供远程的独立DAL服务器，将sql解析并派发至不同的数据库执行，并合并执行结果
