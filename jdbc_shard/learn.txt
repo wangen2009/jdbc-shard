@@ -1,0 +1,6 @@
+exit pakcage
+	 用于执行完查询的退出操作,如查找到某对象就提前退出
+access package
+	提供顺序访问及并发访问两种查询数据库的方式
+selection
+	用于决定生成的对象在那个shard保存 
