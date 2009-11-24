@@ -36,4 +36,6 @@ sql数据解析可以使用sqljep: http://sqljep.sourceforge.net/
 主键生成：
 	支持可以配置为单台服务器的主键生成
 	
+支持单数据库的sharding,如 user_1,user_2,user_3
+	
 远景：支持数据库的垂直切分,提供远程的独立DAL服务器，将sql解析并派发至不同的数据库执行，并合并执行结果
