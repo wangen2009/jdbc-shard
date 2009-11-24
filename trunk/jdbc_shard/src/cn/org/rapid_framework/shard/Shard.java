@@ -4,12 +4,10 @@ import java.util.Set;
 
 import javax.sql.DataSource;
 
-import org.hibernate.shards.ShardId;
-
 
 /**
  * 
- * ´ú±íÒ»¸öShard
+ * ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Shard
  * 
  * @author <a href="mailto:kerrigan@alibaba-inc.com">Argan Wang</a>
  */
