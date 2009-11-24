@@ -10,7 +10,7 @@ Mysql分区请参考: http://dev.mysql.com/doc/refman/5.1/zh/partitioning.html#partit
 		PARTITION datasource2 VALUES IN (3,5,6,9,17);
 哈希分区
 	PARTITION BY HASH(store_id) partitions 2
-　　STORE IN (datasource1,datasource2); 
+　　 STORE IN (datasource1,datasource2); 
 范围分区
 	PARTITION BY RANGE (store_id) (
 	    PARTITION datasource1 VALUES LESS THAN (6),
