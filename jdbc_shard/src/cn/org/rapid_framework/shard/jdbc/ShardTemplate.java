@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import cn.org.rapid_framework.shard.Shard;
 import cn.org.rapid_framework.shard.ShardConfig;
 import cn.org.rapid_framework.shard.strategy.ShardStrategy;
+import cn.org.rapid_framework.shard.strategy.exit.ConcatListExitStrategy;
+import cn.org.rapid_framework.shard.strategy.exit.ExitOperationsCollector;
 
 public class ShardTemplate {
     private ShardStrategy shardStrategy;
@@ -36,10 +36,16 @@ public class ShardTemplate {
 		return (Integer)callback.doInShard(shard);
 	}
 	
-	public List query(){
+	public List query(Serializable obj,ExitOperationsCollector exitOperationsCollector){
+		List shards = getShardsForQuery(obj);
+		shardStrategy.getShardAccessStrategy().apply(shards, operation, new ConcatListExitStrategy(), exitOperationsCollector);
 		return null;
 	}
 	
+	private List getShardsForQuery(Serializable obj) {
+		return null;
+	}
+
 	private Shard getShardForNewObject(Object obj) {
 		return null;
 	}
