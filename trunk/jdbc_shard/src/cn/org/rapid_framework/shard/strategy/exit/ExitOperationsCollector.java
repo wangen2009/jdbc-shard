@@ -18,8 +18,6 @@
 
 package cn.org.rapid_framework.shard.strategy.exit;
 
-import org.hibernate.engine.SessionFactoryImplementor;
-
 import java.util.List;
 
 /**
@@ -35,7 +33,5 @@ import java.util.List;
 public interface ExitOperationsCollector {
 
   List<Object> apply(List<Object> result);
-
-  void setSessionFactory(SessionFactoryImplementor sessionFactoryImplementor);
 
 }

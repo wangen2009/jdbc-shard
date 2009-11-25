@@ -1,6 +1,6 @@
 package cn.org.rapid_framework.shard.strategy.access;
 
-import org.isharding.shard.Shard;
+import cn.org.rapid_framework.shard.Shard;
 
 /**
  * 在shards中执行的一次操作

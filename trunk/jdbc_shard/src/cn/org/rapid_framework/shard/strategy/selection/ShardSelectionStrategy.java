@@ -16,16 +16,21 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
  */
 
-package cn.org.rapid_framework.shard.strategy.access;
+package cn.org.rapid_framework.shard.strategy.selection;
 
-import java.util.List;
+import cn.org.rapid_framework.shard.ShardId;
 
-import cn.org.rapid_framework.shard.Shard;
-import cn.org.rapid_framework.shard.strategy.exit.ExitOperationsCollector;
-import cn.org.rapid_framework.shard.strategy.exit.ExitStrategy;
 
-public interface ShardAccessStrategy {
-	<T> T apply(List<Shard> shards, ShardOperation operation,
-			ExitStrategy<T> exitStrategy,
-			ExitOperationsCollector exitOperationsCollector);
+/**
+ * @author maxr@google.com (Max Ross)
+ */
+public interface ShardSelectionStrategy {
+
+  /**
+   * Determine the specific shard on which this object should reside
+   *
+   * @param obj the new object for which we are selecting a shard
+   * @return the id of the shard on which this object should live
+   */
+  ShardId selectShardIdForNewObject(Object obj);
 }

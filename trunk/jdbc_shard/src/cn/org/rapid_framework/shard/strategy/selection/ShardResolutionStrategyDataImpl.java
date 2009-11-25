@@ -16,16 +16,32 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
  */
 
-package cn.org.rapid_framework.shard.strategy.access;
+package cn.org.rapid_framework.shard.strategy.selection;
 
-import java.util.List;
+import java.io.Serializable;
 
-import cn.org.rapid_framework.shard.Shard;
-import cn.org.rapid_framework.shard.strategy.exit.ExitOperationsCollector;
-import cn.org.rapid_framework.shard.strategy.exit.ExitStrategy;
+/**
+ * @author maxr@google.com (Max Ross)
+ */
+public class ShardResolutionStrategyDataImpl implements ShardResolutionStrategyData {
+  private final String entityName;
+  private final Serializable id;
 
-public interface ShardAccessStrategy {
-	<T> T apply(List<Shard> shards, ShardOperation operation,
-			ExitStrategy<T> exitStrategy,
-			ExitOperationsCollector exitOperationsCollector);
+  public ShardResolutionStrategyDataImpl(Class<?> clazz, Serializable id) {
+    this(clazz.getName(), id);
+  }
+
+  public ShardResolutionStrategyDataImpl(String entityName, Serializable id) {
+    this.entityName = entityName;
+    this.id = id;
+  }
+
+  public String getEntityName() {
+    return entityName;
+  }
+
+  public Serializable getId() {
+    return id;
+  }
+
 }

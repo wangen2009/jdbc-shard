@@ -18,6 +18,8 @@
 
 package cn.org.rapid_framework.shard.strategy.exit;
 
+import cn.org.rapid_framework.shard.Shard;
+
 
 /**
  * Classes implementing this interface gather results from operations that are
