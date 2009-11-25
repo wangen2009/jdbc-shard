@@ -34,21 +34,21 @@ public class ShardedJdbcDaoSupport extends DaoSupport {
      * Return the SqlMapClientTemplate for this DAO, pre-initialized with the
      * SqlMapClient or set explicitly.
      */
-    public final JdbcTemplate getJdbcTemplate(ShardResolutionStrategyData data) {
-        List<ShardId> shardIds = this.shardStrategy.getShardResolutionStrategy()
-                .selectShardIdsFromShardResolutionStrategyData(data);
-        List<Shard> shards = selectShardsByShardIds(shardIds);
-        if (shards.size() <= 0) {
-            throw new RuntimeException("No shard can be selected to execute.");
-        }
-//        return new ShardedSqlMapClientTemplate(this.shardStrategy.getShardAccessStrategy(), shards, this.sqlMapClient);
-    }
+//    public final JdbcTemplate getJdbcTemplate(ShardResolutionStrategyData data) {
+////        List<ShardId> shardIds = this.shardStrategy.getShardResolutionStrategy()
+////                .selectShardIdsFromShardResolutionStrategyData(data);
+//        List<Shard> shards = selectShardsByShardIds(shardIds);
+//        if (shards.size() <= 0) {
+//            throw new RuntimeException("No shard can be selected to execute.");
+//        }
+////        return new ShardedSqlMapClientTemplate(this.shardStrategy.getShardAccessStrategy(), shards, this.sqlMapClient);
+//    }
 
     private List<Shard> selectShardsByShardIds(List<ShardId> shardIds) {
         List<Shard> list = new ArrayList<Shard>(this.shardConfig.getAllShards().size());
         for (Shard shard : this.shardConfig.getAllShards()) {
             for (ShardId shardId : shardIds) {
-                if (shard.getShardIds().contains(shardId) && list.contains(shard) == false) {
+                if (shard.getShardId().equals(shardId)) {
                     list.add(shard);
                 }
             }
