@@ -96,7 +96,7 @@
 		<antcall target="compile-test"/>
 	</target>
 		
-	<target name="jar" depends="test">
+	<target name="jar" depends="compile-all">
 		<jar jarfile="${dir.dist}/${jar.name}">
 			<fileset dir="${dir.dist.java}">
 				<include name="META-INF/**"/>
@@ -183,7 +183,7 @@
 	<target name="cc_main" description="用于持续集成工具CruiseControl的接入">
 		<antcall target="clean"></antcall>
 		<antcall target="test"></antcall>
-		<antcall target="war"></antcall>
+		<antcall target="jar"></antcall>
 	</target>
 	
 </project>
