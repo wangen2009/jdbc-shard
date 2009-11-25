@@ -3,13 +3,15 @@ package cn.org.rapid_framework.shard.jdbc;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.jdbc.core.JdbcTemplate;
+
 import cn.org.rapid_framework.shard.Shard;
 import cn.org.rapid_framework.shard.ShardConfig;
 import cn.org.rapid_framework.shard.ShardId;
 import cn.org.rapid_framework.shard.strategy.ShardStrategy;
 
 /**
- * 为ibatis提供sharding支持，目前不支持transaction
+ * 为jdbc提供sharding支持，目前不支持transaction
  * 
  * 目前不支持求平均数，group by等需要所有节点支持的操作
  * 
@@ -18,53 +20,25 @@ import cn.org.rapid_framework.shard.strategy.ShardStrategy;
  * @author <a href="mailto:kerrigan@alibaba-inc.com">Argan Wang</a>
  * 
  */
-public class ShardedSqlMapClientDAOSupport extends DaoSupport {
+public class ShardedSqlMapClientDAOSupport extends ShardedJdbcDaoSupport {
 
     private ShardStrategy shardStrategy;
-    private SqlMapClient  sqlMapClient;
+    private JdbcTemplate  jdbcTemplate;
     private ShardConfig   shardConfig;
 
-    /**
-     * Set the iBATIS Database Layer SqlMapClient to work with. Either this or a
-     * "sqlMapClientTemplate" is required.
-     * 
-     * @see #setSqlMapClientTemplate
-     */
-    public final void setSqlMapClient(SqlMapClient sqlMapClient) {
-        this.sqlMapClient = sqlMapClient;
-    }
-
-    /**
-     * Return the iBATIS Database Layer SqlMapClient that this template works
-     * with.
-     */
-    public final SqlMapClient getSqlMapClient() {
-        return this.sqlMapClient;
-    }
-
-    /**
-     * Return the SqlMapClientTemplate for this DAO, pre-initialized with the
-     * SqlMapClient or set explicitly.
-     */
-    public final Operations getSqlMapClientTemplate(ShardResolutionStrategyData data) {
-        List<ShardId> shardIds = this.shardStrategy.getShardResolutionStrategy()
-                .selectShardIdsFromShardResolutionStrategyData(data);
-        List<Shard> shards = selectShardsByShardIds(shardIds);
-        if (shards.size() <= 0) {
-            throw new RuntimeException("No shard can be selected to execute.");
-        }
-        return new ShardedSqlMapClientTemplate(this.shardStrategy.getShardAccessStrategy(), shards, this.sqlMapClient);
-    }
-
-    /**
-     * default match all shards.
-     * 
-     * @return
-     */
-    public final Operations getSqlMapClientTemplate() {
-        return new ShardedSqlMapClientTemplate(this.shardStrategy.getShardAccessStrategy(), this.shardConfig
-                .getAllShards(), this.sqlMapClient);
-    }
+//    /**
+//     * Return the SqlMapClientTemplate for this DAO, pre-initialized with the
+//     * SqlMapClient or set explicitly.
+//     */
+//    public final Operations getSqlMapClientTemplate(ShardResolutionStrategyData data) {
+//        List<ShardId> shardIds = this.shardStrategy.getShardResolutionStrategy()
+//                .selectShardIdsFromShardResolutionStrategyData(data);
+//        List<Shard> shards = selectShardsByShardIds(shardIds);
+//        if (shards.size() <= 0) {
+//            throw new RuntimeException("No shard can be selected to execute.");
+//        }
+//        return new ShardedSqlMapClientTemplate(this.shardStrategy.getShardAccessStrategy(), shards, this.sqlMapClient);
+//    }
 
     private List<Shard> selectShardsByShardIds(List<ShardId> shardIds) {
         List<Shard> list = new ArrayList<Shard>(this.shardConfig.getAllShards().size());

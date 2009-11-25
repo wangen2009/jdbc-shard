@@ -16,16 +16,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
  */
 
-package cn.org.rapid_framework.shard.strategy.access;
+package cn.org.rapid_framework.shard.strategy.selection;
 
-import java.util.List;
+import java.io.Serializable;
 
-import cn.org.rapid_framework.shard.Shard;
-import cn.org.rapid_framework.shard.strategy.exit.ExitOperationsCollector;
-import cn.org.rapid_framework.shard.strategy.exit.ExitStrategy;
+/**
+ * @author maxr@google.com (Max Ross)
+ */
+public interface ShardResolutionStrategyData {
 
-public interface ShardAccessStrategy {
-	<T> T apply(List<Shard> shards, ShardOperation operation,
-			ExitStrategy<T> exitStrategy,
-			ExitOperationsCollector exitOperationsCollector);
+  String getEntityName();
+
+  Serializable getId();
 }

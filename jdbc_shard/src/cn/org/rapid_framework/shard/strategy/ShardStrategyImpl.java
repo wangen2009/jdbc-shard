@@ -1,8 +1,8 @@
 package cn.org.rapid_framework.shard.strategy;
 
-import org.isharding.shard.strategy.access.ShardAccessStrategy;
-import org.isharding.shard.strategy.resolution.ShardResolutionStrategy;
-import org.isharding.shard.strategy.selection.ShardSelectionStrategy;
+import cn.org.rapid_framework.shard.strategy.access.ShardAccessStrategy;
+import cn.org.rapid_framework.shard.strategy.selection.ShardSelectionStrategy;
+
 
 /**
  * @author maxr@google.com (Max Ross)
@@ -10,16 +10,15 @@ import org.isharding.shard.strategy.selection.ShardSelectionStrategy;
 public class ShardStrategyImpl implements ShardStrategy {
 
     private ShardSelectionStrategy  shardSelectionStrategy;
-    private ShardResolutionStrategy shardResolutionStrategy;
+//    private ShardResolutionStrategy shardResolutionStrategy;
     private ShardAccessStrategy     shardAccessStrategy;
 
     public ShardStrategyImpl() {
 
     }
 
-    public ShardStrategyImpl(ShardSelectionStrategy shardSelectionStrategy,ShardResolutionStrategy shardResolutionStrategy, ShardAccessStrategy shardAccessStrategy) {
+    public ShardStrategyImpl(ShardSelectionStrategy shardSelectionStrategy, ShardAccessStrategy shardAccessStrategy) {
         this.shardSelectionStrategy = shardSelectionStrategy;
-        this.shardResolutionStrategy = shardResolutionStrategy;
         this.shardAccessStrategy = shardAccessStrategy;
     }
 
@@ -27,9 +26,9 @@ public class ShardStrategyImpl implements ShardStrategy {
         return shardSelectionStrategy;
     }
 
-    public ShardResolutionStrategy getShardResolutionStrategy() {
-        return shardResolutionStrategy;
-    }
+//    public ShardResolutionStrategy getShardResolutionStrategy() {
+//        return shardResolutionStrategy;
+//    }
 
     public ShardAccessStrategy getShardAccessStrategy() {
         return shardAccessStrategy;
@@ -39,9 +38,9 @@ public class ShardStrategyImpl implements ShardStrategy {
         this.shardSelectionStrategy = shardSelectionStrategy;
     }
 
-    public void setShardResolutionStrategy(ShardResolutionStrategy shardResolutionStrategy) {
-        this.shardResolutionStrategy = shardResolutionStrategy;
-    }
+//    public void setShardResolutionStrategy(ShardResolutionStrategy shardResolutionStrategy) {
+//        this.shardResolutionStrategy = shardResolutionStrategy;
+//    }
 
     public void setShardAccessStrategy(ShardAccessStrategy shardAccessStrategy) {
         this.shardAccessStrategy = shardAccessStrategy;
