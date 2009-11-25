@@ -16,15 +16,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
  */
 
-package cn.org.rapid_framework.shard.strategy;
+package cn.org.rapid_framework.shard.strategy.access;
 
 import java.util.List;
 
-/**
- * @author Maulik Shah
- */
-public interface ExitOperation {
+import cn.org.rapid_framework.shard.Shard;
+import cn.org.rapid_framework.shard.strategy.exit.ExitOperationsCollector;
+import cn.org.rapid_framework.shard.strategy.exit.ExitStrategy;
 
-  List<Object> apply(List<Object> results);
-
+public interface ShardAccessStrategy {
+	<T> T apply(List<Shard> shards, ShardOperation<T> operation,
+			ExitStrategy<T> exitStrategy,
+			ExitOperationsCollector exitOperationsCollector);
 }
